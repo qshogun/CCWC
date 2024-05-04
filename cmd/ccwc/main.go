@@ -16,32 +16,37 @@ func main() {
 	mFlag := flag.Bool("m", false, "Count characters in a file")
 	flag.Parse()
 
-	flags := []bool{*cFlag, *lFlag, *wFlag, *mFlag}
+	flags := map[string]bool{
+		"Bytes":      *cFlag,
+		"Lines":      *lFlag,
+		"Words":      *wFlag,
+		"Characters": *mFlag,
+	}
 
-	processFlags(cFlag, lFlag, wFlag, mFlag, flags, flag.Args())
+	processFlags(flags, flag.Args())
 }
 
-func processFlags(cFlag *bool, lFlag *bool, wFlag *bool, mFlag *bool, flags []bool, args []string) {
+func processFlags(flags map[string]bool, args []string) {
 	if len(args) != 1 {
 		fmt.Fprintln(os.Stderr, "Please provide a file name")
 		os.Exit(2)
 	}
 
-	filename := flag.Args()[0]
+	filename := args[0]
 
-	if *cFlag {
+	if flags["Bytes"] {
 		handlecommand(ccwc.GetBytes, filename, "Bytes")
 	}
 
-	if *lFlag {
+	if flags["Lines"] {
 		handlecommand(ccwc.GetLines, filename, "Lines")
 	}
 
-	if *wFlag {
+	if flags["Words"] {
 		handlecommand(ccwc.GetWords, filename, "Words")
 	}
 
-	if *mFlag {
+	if flags["Characters"] {
 		handlecommand(ccwc.GetCharacters, filename, "Characters")
 	}
 
