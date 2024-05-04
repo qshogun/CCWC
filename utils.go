@@ -1,8 +1,8 @@
 package main
 
-func areAllFalse(items []bool) bool {
+func areAllTrue(items []bool) bool {
 	for _, item := range items {
-		if item {
+		if !item {
 			return false
 		}
 	}

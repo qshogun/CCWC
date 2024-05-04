@@ -38,7 +38,7 @@ func main() {
 		handlecommand(getcharacters, filename, "Characters")
 	}
 
-	if areAllFalse(flags) {
+	if !areAllTrue(flags) {
 		handlecommand(getbytes, filename, "Bytes")
 		handlecommand(getlines, filename, "Lines")
 		handlecommand(getwords, filename, "Words")
