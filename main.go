@@ -15,7 +15,11 @@ func main() {
 
 	flags := []bool{*cFlag, *lFlag, *wFlag, *mFlag}
 
-	if len(flag.Args()) != 1 {
+	processFlags(cFlag, lFlag, wFlag, mFlag, flags, flag.Args())
+}
+
+func processFlags(cFlag *bool, lFlag *bool, wFlag *bool, mFlag *bool, flags []bool, args []string) {
+	if len(args) != 1 {
 		fmt.Fprintln(os.Stderr, "Please provide a file name")
 		os.Exit(2)
 	}
@@ -38,7 +42,7 @@ func main() {
 		handlecommand(getcharacters, filename, "Characters")
 	}
 
-	if !areAllTrue(flags) {
+	if !isAnyTrue(flags) {
 		handlecommand(getbytes, filename, "Bytes")
 		handlecommand(getlines, filename, "Lines")
 		handlecommand(getwords, filename, "Words")
@@ -52,5 +56,7 @@ func handlecommand(function func(string) (int, error), filename string, command 
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(2)
 	}
-	fmt.Println(command, ": ", result)
+
+	output := fmt.Sprintf("%s : %d\n", command, result)
+	fmt.Print(output)
 }
