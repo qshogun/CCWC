@@ -26,11 +26,3 @@ jobs:
 
     - name: Build
       run: go build -v ./...
-
-    - name: Create Tag
-      id: create_tag
-      run: |
-        GIT_TAG=$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)
-        echo "name=GIT_TAG::${GIT_TAG}" >> GITHUB_OUTPUT
-        git tag $GIT_TAG
-        git push origin $GIT_TAG
