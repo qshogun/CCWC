@@ -1,6 +1,6 @@
-package main
+package utils
 
-func isAnyTrue(items []bool) bool {
+func IsAnyTrue(items []bool) bool {
 	for _, item := range items {
 		if item {
 			return true

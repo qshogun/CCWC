@@ -1,11 +1,11 @@
-package main
+package ccwc
 
 import (
 	"bufio"
 	"os"
 )
 
-func getbytes(filename string) (int, error) {
+func GetBytes(filename string) (int, error) {
 	data, err := os.ReadFile(filename)
 	if err != nil {
 		return 0, err
@@ -13,7 +13,7 @@ func getbytes(filename string) (int, error) {
 	return len(data), nil
 }
 
-func getlines(filename string) (int, error) {
+func GetLines(filename string) (int, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return 0, err
@@ -33,7 +33,7 @@ func getlines(filename string) (int, error) {
 	return lines, nil
 }
 
-func getwords(filename string) (int, error) {
+func GetWords(filename string) (int, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return 0, err
@@ -54,7 +54,7 @@ func getwords(filename string) (int, error) {
 	return words, nil
 }
 
-func getcharacters(filename string) (int, error) {
+func GetCharacters(filename string) (int, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return 0, err

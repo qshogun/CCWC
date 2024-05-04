@@ -1,7 +1,9 @@
-package main
+package ccwc_test
 
 import (
 	"testing"
+
+	"github.com/qshogun/ccwc/pkg/ccwc"
 )
 
 func TestCCWC(t *testing.T) {
@@ -13,25 +15,25 @@ func TestCCWC(t *testing.T) {
 	}{
 		{
 			name:     "GetBytes",
-			function: getbytes,
+			function: ccwc.GetBytes,
 			file:     "testdata/test.txt",
 			expected: 335039,
 		},
 		{
 			name:     "GetLines",
-			function: getlines,
+			function: ccwc.GetLines,
 			file:     "testdata/test.txt",
 			expected: 7143,
 		},
 		{
 			name:     "GetWords",
-			function: getwords,
+			function: ccwc.GetWords,
 			file:     "testdata/test.txt",
 			expected: 58164,
 		},
 		{
 			name:     "GetCharacters",
-			function: getcharacters,
+			function: ccwc.GetCharacters,
 			file:     "testdata/test.txt",
 			expected: 332143,
 		},

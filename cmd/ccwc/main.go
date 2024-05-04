@@ -4,6 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"github.com/qshogun/ccwc/internal/utils"
+	"github.com/qshogun/ccwc/pkg/ccwc"
 )
 
 func main() {
@@ -27,26 +30,26 @@ func processFlags(cFlag *bool, lFlag *bool, wFlag *bool, mFlag *bool, flags []bo
 	filename := flag.Args()[0]
 
 	if *cFlag {
-		handlecommand(getbytes, filename, "Bytes")
+		handlecommand(ccwc.GetBytes, filename, "Bytes")
 	}
 
 	if *lFlag {
-		handlecommand(getlines, filename, "Lines")
+		handlecommand(ccwc.GetLines, filename, "Lines")
 	}
 
 	if *wFlag {
-		handlecommand(getwords, filename, "Words")
+		handlecommand(ccwc.GetWords, filename, "Words")
 	}
 
 	if *mFlag {
-		handlecommand(getcharacters, filename, "Characters")
+		handlecommand(ccwc.GetCharacters, filename, "Characters")
 	}
 
-	if !isAnyTrue(flags) {
-		handlecommand(getbytes, filename, "Bytes")
-		handlecommand(getlines, filename, "Lines")
-		handlecommand(getwords, filename, "Words")
-		handlecommand(getcharacters, filename, "Characters")
+	if !utils.IsAnyTrue(flags) {
+		handlecommand(ccwc.GetBytes, filename, "Bytes")
+		handlecommand(ccwc.GetLines, filename, "Lines")
+		handlecommand(ccwc.GetWords, filename, "Words")
+		handlecommand(ccwc.GetCharacters, filename, "Characters")
 	}
 }
 
