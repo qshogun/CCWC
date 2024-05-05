@@ -1,6 +1,7 @@
 package ccwc_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/qshogun/ccwc/pkg/ccwc"
@@ -9,7 +10,7 @@ import (
 func TestCCWC(t *testing.T) {
 	tests := []struct {
 		name     string
-		function func(string) (int, error)
+		function func(string) int
 		file     string
 		expected int
 	}{
@@ -41,10 +42,8 @@ func TestCCWC(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			result, err := test.function(test.file)
-			if err != nil {
-				t.Fatal(err)
-			}
+			data, _ := os.ReadFile(test.file)
+			result := test.function(string(data))
 			if result != test.expected {
 				t.Errorf("Expected %d, got %d", test.expected, result)
 			}
