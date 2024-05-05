@@ -1,8 +1,8 @@
 package ccwc
 
 import (
-	"bufio"
 	"fmt"
+	"io"
 	"os"
 
 	"github.com/qshogun/ccwc/internal/utils"
@@ -52,6 +52,11 @@ func ProcessFlags(flags map[string]bool, args []string) {
 }
 
 func ReadFromStdin() (string, error) {
-	reader := bufio.NewReader(os.Stdin)
-	return reader.ReadString('\n')
+	stdin, err := io.ReadAll(os.Stdin)
+
+	if err != nil {
+		panic(err)
+	}
+	str := string(stdin)
+	return str, nil
 }
