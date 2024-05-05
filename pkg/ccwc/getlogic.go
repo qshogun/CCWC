@@ -1,76 +1,21 @@
 package ccwc
 
 import (
-	"bufio"
-	"os"
+	"strings"
 )
 
-func GetBytes(filename string) (int, error) {
-	data, err := os.ReadFile(filename)
-	if err != nil {
-		return 0, err
-	}
-	return len(data), nil
+func GetBytes(data string) int {
+	return len(data)
 }
 
-func GetLines(filename string) (int, error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		return 0, err
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	lines := 0
-	for scanner.Scan() {
-		lines++
-	}
-
-	if err := scanner.Err(); err != nil {
-		return 0, err
-	}
-
-	return lines, nil
+func GetLines(data string) int {
+	return len(strings.Split(data, "\n"))
 }
 
-func GetWords(filename string) (int, error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		return 0, err
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanWords)
-	words := 0
-	for scanner.Scan() {
-		words++
-	}
-
-	if err := scanner.Err(); err != nil {
-		return 0, err
-	}
-
-	return words, nil
+func GetWords(data string) int {
+	return len(strings.Fields(data))
 }
 
-func GetCharacters(filename string) (int, error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		return 0, err
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanRunes)
-	characters := 0
-	for scanner.Scan() {
-		characters++
-	}
-
-	if err := scanner.Err(); err != nil {
-		return 0, err
-	}
-
-	return characters, nil
+func GetCharacters(data string) int {
+	return len([]rune(data))
 }

@@ -1,6 +1,7 @@
 package ccwc
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 
@@ -8,33 +9,49 @@ import (
 )
 
 func ProcessFlags(flags map[string]bool, args []string) {
-	if len(args) != 1 {
-		fmt.Fprintln(os.Stderr, "Please provide a file name")
-		os.Exit(2)
+	var data string
+	var err error
+
+	if len(args) == 0 {
+		data, err = ReadFromStdin()
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(2)
+		}
+	} else {
+		fileData, err := os.ReadFile(args[0])
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(2)
+		}
+		data = string(fileData)
 	}
 
-	filename := args[0]
-
 	if flags["Bytes"] {
-		HandleCommand(GetBytes, filename, "Bytes")
+		HandleCommand(GetBytes, data, "Bytes")
 	}
 
 	if flags["Lines"] {
-		HandleCommand(GetLines, filename, "Lines")
+		HandleCommand(GetLines, data, "Lines")
 	}
 
 	if flags["Words"] {
-		HandleCommand(GetWords, filename, "Words")
+		HandleCommand(GetWords, data, "Words")
 	}
 
 	if flags["Characters"] {
-		HandleCommand(GetCharacters, filename, "Characters")
+		HandleCommand(GetCharacters, data, "Characters")
 	}
 
 	if !utils.IsAnyTrue(flags) {
-		HandleCommand(GetBytes, filename, "Bytes")
-		HandleCommand(GetLines, filename, "Lines")
-		HandleCommand(GetWords, filename, "Words")
-		HandleCommand(GetCharacters, filename, "Characters")
+		HandleCommand(GetBytes, data, "Bytes")
+		HandleCommand(GetLines, data, "Lines")
+		HandleCommand(GetWords, data, "Words")
+		HandleCommand(GetCharacters, data, "Characters")
 	}
+}
+
+func ReadFromStdin() (string, error) {
+	reader := bufio.NewReader(os.Stdin)
+	return reader.ReadString('\n')
 }
