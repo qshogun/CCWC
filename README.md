@@ -21,6 +21,14 @@ ccwc -c -l -w -m test.txt
 
 This command will count the number of bytes, lines, words, and characters in `test.txt`.
 
+You can also use CCWC with other command-line tools. For example, you can pipe the output of cat into CCWC:
+
+```sh
+cat test.txt | ccwc -c
+```
+
+This command will count the number of bytes in the output of cat test.txt.
+
 ## Installation
 
 To install CCWC, you need to have Go installed on your machine. Then, you can clone this repository and build the tool with the following commands:
